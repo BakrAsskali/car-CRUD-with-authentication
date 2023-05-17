@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CarServiceService } from '../car-service.service';
 import { CarModule } from '../car/car.module';
 
@@ -27,7 +28,7 @@ export class UpdateCArComponent {
 
   a!: number;
 
-  constructor(private carService: CarServiceService) {}
+  constructor(private carService: CarServiceService, private router: Router) {}
 
   showMe() {
     let mycar = new CarModule();
@@ -55,6 +56,7 @@ export class UpdateCArComponent {
     mycar.marque = this.marque;
 
     this.carService.updateCar(mycar).subscribe();
+    this.router.navigate(['/cars']);
   }
 
   displayedColumns: string[] = ['id', 'Model', 'Horse Power', 'Marque'];

@@ -20,7 +20,7 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_NAME = os.getenv('DB_NAME')
 
 app = Flask(__name__)
-app.config['JWT_SECRET']=os.getenv('JWT_SECRET')
+app.config['JWT_SECRET_KEY']=os.getenv('JWT_SECRET')
 jwt = JWTManager(app)
 cors = CORS(app)
 
@@ -34,7 +34,7 @@ mydb = mysql.connector.connect(
 # les web methods 
 
 @app.route('/savecar' , methods = ['POST'])
-@jwt_required
+@jwt_required()
 def saveCar():
     
     args = request.json
@@ -56,6 +56,7 @@ def saveCar():
     return "Saved : "
 
 @app.route('/cars' , methods = ['GET'])
+@jwt_required()
 def getCars():
     
     mylist = []
@@ -68,6 +69,7 @@ def getCars():
     return json.dumps(mylist)
 
 @app.route('/car/<car_id>' , methods = ['GET'])
+@jwt_required()
 def getCar(car_id):
     mylist = []
     req = "select * from car where id = %s"
@@ -82,6 +84,7 @@ def getCar(car_id):
     return json.dumps(mylist)
 
 @app.route('/deletecar/<id>' , methods = ['DELETE'])
+@jwt_required()
 def deleteCar(id):
     
     myCursor = mydb.cursor()
@@ -93,6 +96,7 @@ def deleteCar(id):
     return "Deleted : "
 
 @app.route('/updatecar/<id>' , methods = ['PUT'])
+@jwt_required()
 def updateCar(id):
     
     args = request.json
@@ -114,18 +118,16 @@ def login():
         username = request.json.get("username", None)
         password = request.json.get("password", None)
 
-        # validate user input
         if not username or not password or len(username) < 3 or len(password) < 3:
             return jsonify({"data": "Bad username or password"}), 401
 
         cursor = mydb.cursor()
-        req = "SELECT * FROM mydb.user WHERE username = %s"
+        req = "SELECT * FROM mydb.users WHERE username = %s"
         val = (username,)
         cursor.execute(req, val)
         result = cursor.fetchone()
         if result is None:
             return jsonify({"status": "error", "data": "Bad username or password"}), 401
-        # email , password
         user = User(result[1], result[2])
         compare_passwords = bcrypt.checkpw(password.encode('utf8'), user.password.encode('utf8'))
         if not compare_passwords:
@@ -143,8 +145,7 @@ def register():
         username = request.json.get("username", None)
         password = request.json.get("password", None)
         cursor = mydb.cursor()
-        req = "INSERT INTO mydb.user (username, password) VALUES (%s, %s)"
-        # create hashed password
+        req = "INSERT INTO mydb.users (username, password) VALUES (%s, %s)"
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf8'), salt)
         user = User(username, hashed_password)
@@ -154,7 +155,8 @@ def register():
         access_token = create_access_token(identity=username)
         return jsonify({"status": "success", "data": {"jwt": access_token}}), 201
     except Exception as e:
-        return jsonify({"status": "error", "data": "Username already exists"}), 401
+        print(e)
+        return jsonify({"status": "error", "data": "An error has occurred"}), 401
 
 
 if __name__ == '__main__':

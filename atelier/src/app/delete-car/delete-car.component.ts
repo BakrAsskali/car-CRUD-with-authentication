@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarServiceService } from '../car-service.service';
 
 @Component({
@@ -7,11 +8,12 @@ import { CarServiceService } from '../car-service.service';
   styleUrls: ['./delete-car.component.css'],
 })
 export class DeleteCarComponent {
-  constructor(private carservice: CarServiceService) {}
+  constructor(private carservice: CarServiceService, private router: Router) {}
 
   id_car!: number;
 
   deleteCar() {
     this.carservice.deleteCar(this.id_car).subscribe();
+    this.router.navigate(['/cars']);
   }
 }

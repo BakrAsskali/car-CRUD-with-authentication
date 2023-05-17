@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CarServiceService } from '../car-service.service';
 
 @Component({
   selector: 'app-login',
@@ -7,20 +9,20 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required]);
+  username = '';
+  password = '';
 
-  constructor() {
-    localStorage.removeItem('jwt');
+  constructor(private router: Router, private carService: CarServiceService) {
+    localStorage.setItem('jwt', '');
   }
 
-  async login() {
+  login() {
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     let raw = JSON.stringify({
-      username: this.username.value,
-      password: this.password.value,
+      username: this.username,
+      password: this.password,
     });
 
     let requestOptions: RequestInit = {
@@ -33,9 +35,9 @@ export class LoginComponent {
     fetch('http://localhost:5000/login', requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (result.token) {
-          localStorage.setItem('jwt', result.token);
-        }
-      });
+        localStorage.setItem('jwt', result.data.jwt);
+        this.router.navigate(['/']);
+      })
+      .catch((error) => console.log('error', error));
   }
 }

@@ -1,6 +1,8 @@
-<p>Delete Car</p>
+<h1>Car deletion</h1>
 
-<p>Enter Car id to delete</p>
-<input type="text" [(ngModel)]="id_car" placeholder="car id">
-
-<button (click)="deleteCar()">Delete</button>
+<form>
+    <mat-form-field>
+        <input matInput placeholder="Car id" [(ngModel)]="id_car" name="id">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="deleteCar()">Delete car</button>
+</form>

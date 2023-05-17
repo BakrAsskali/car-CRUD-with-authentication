@@ -1,12 +1,14 @@
-<p>Car Creation</p> <br>
+<h1>Car creation</h1>
 
-<label>Model</label>
-<input type ="text"  [(ngModel)]="model" /> <br>
-
-<label>HP</label>
-<input type ="number" [(ngModel)]="hp"/><br>
-
-<label>Marque</label>
-<input type ="text" [(ngModel)]="marque"/><br>
-
-<button (click)="saveMe()" > Save</button>
+<form>
+    <mat-form-field>
+        <input matInput placeholder="Model" [(ngModel)]="model" name="model">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Horse power" [(ngModel)]="hp" name="hp">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Marque" [(ngModel)]="marque" name="marque">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="saveMe()">Add car</button>
+</form>

@@ -1,27 +1,28 @@
 <p>List of cars </p>
 
-<table>
 
 
-    <th>
-id
-    </th>
-    <th>
-       model 
-    </th>
-    <th>
-        hp
-    </th>
-    <th>
-       marque 
-    </th>
+<table mat-table [dataSource]="cars" class="mat-elevation-z8 demo-table">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.id_car}} </td>
+    </ng-container>
 
+    <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef> Model </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.model}} </td>
+    </ng-container>
 
-<tr  *ngFor="let car of cars">
-    <td>{{car.id_car}}</td>
-    <td>{{car.model}}</td>
-    <td>{{car.hp}}</td>
-    <td>{{car.marque}}</td>
-</tr>
+    <ng-container matColumnDef="horsePower">
+        <th mat-header-cell *matHeaderCellDef> Horse power </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.hp}} </td>
+    </ng-container>
 
+    <ng-container matColumnDef="marque">
+        <th mat-header-cell *matHeaderCellDef> Marque </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.marque}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id','model','horsePower','marque']"></tr>
+    <tr mat-row *matRowDef="let car; columns: ['id','model','horsePower','marque'];"></tr>
 </table>

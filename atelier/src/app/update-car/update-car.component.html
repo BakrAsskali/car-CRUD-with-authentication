@@ -5,37 +5,53 @@
 <button (click)="showMe()">Show</button>
 
 <table mat-table class="mat-elevation-z8">
-
     <ng-container matColumnDef="id">
-        <th mat-header-cell> id. </th>
-        <td mat-cell>
-            <input type="text" [(ngModel)]="a" placeholder="car id">
-        </td>
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.id_car}} </td>
+        <input type="text" [(ngModel)]="id_car" name="id">
     </ng-container>
 
-    <ng-container matColumnDef="Model">
-        <th mat-header-cell> Model </th>
-        <td mat-cell>
-            <input type="text" [(ngModel)]="model" placeholder="Model">
-        </td>
+    <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef> Model </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.model}} </td>
+        <input type="text" [(ngModel)]="model" name="model">
     </ng-container>
 
-    <ng-container matColumnDef="Horse power">
-        <th mat-header-cell> Horse power </th>
-        <td mat-cell>
-            <input type="text" [(ngModel)]="hp" placeholder="Horse power">
-        </td>
+    <ng-container matColumnDef="horsePower">
+        <th mat-header-cell *matHeaderCellDef> Horse power </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.hp}} </td>
+        <input type="text" [(ngModel)]="hp" name="hp">
     </ng-container>
 
-    <ng-container matColumnDef="Marque">
-        <th mat-header-cell> Marque </th>
-        <td mat-cell>
-            <input type="text" [(ngModel)]="marque" placeholder="Marque">
-        </td>
+    <ng-container matColumnDef="marque">
+        <th mat-header-cell *matHeaderCellDef> Marque </th>
+        <td mat-cell *matCellDef="let car of cars"> {{car.marque}} </td>
+        <input type="text" [(ngModel)]="marque" name="marque">
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id','model','horsePower','marque']"></tr>
+    <tr mat-row *matRowDef="let car; columns: ['id','model','horsePower','marque'];"></tr>
+</table>
+
+<table>
+    <ng-container matColumnDef="id">
+        <input type="text" [(ngModel)]="id_car" name="id" placeholder="id" style="width:50px; margin-right: 50px ;">
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+        <input type="text" [(ngModel)]="model" name="model" placeholder="model"
+            style="width: 80px; margin-right: 50px;">
+    </ng-container>
+
+    <ng-container matColumnDef="horsePower">
+        <input type="text" [(ngModel)]="hp" name="hp" placeholder="horse power"
+            style="width: 80px; margin-left: 100px;">
+    </ng-container>
+
+    <ng-container matColumnDef="marque">
+        <input type="text" [(ngModel)]="marque" name="marque" placeholder="marque"
+            style="width: 80px; margin-left: 250px;">
+    </ng-container>
 </table>
 
 <button (click)="updateCar()">Update</button>

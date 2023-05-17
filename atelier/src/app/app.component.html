@@ -1,23 +1,16 @@
 <h1> Page principal</h1>
 
+<mat-toolbar color="primary">
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+    <a mat-button routerLink="/listofcars">Cars</a>
+    <a mat-button routerLink="/addcar">Add car</a>
+    <a mat-button routerLink="/updatecar">Update car</a>
+    <a mat-button routerLink="/deletecar">Delete car</a>
+</mat-toolbar>
 
-<nav>
-    <li>
-        <a routerlink="/">Home</a>
-    </li>
-    <li>
-        <a routerlink="/login">Login</a>
-    </li>
-    <li>
-        <a routerlink="/register">Register</a>
-    </li>
-</nav>
 
-<router-outlet></router-outlet>
 
-<nav>
-    <li><a routerlink="/listofcars">Cars</a></li>
-    <li><a routerlink="/addcar">Add car</a></li>
-    <li><a routerlink="/updatecar">Update car</a></li>
-    <li><a routerlink="/deletecar">Delete car</a></li>
-</nav>
+<router-outlet>
+</router-outlet>
