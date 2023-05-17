@@ -1,0 +1,18 @@
+<mat-toolbar style="position: absolute; top: 0;">
+    <span>Register</span>
+</mat-toolbar>
+<div style="margin-top: 64px; display: flex; justify-content: center; align-items: center; height: 100%;">
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Password" [(ngModel)]="password" name="password" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="register()">Register</button>
+        <a mat-raised-button color="primary" routerLink="/login">
+            Already have an account?
+            Login
+        </a>
+    </form>
+</div>

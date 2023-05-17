@@ -1,0 +1,41 @@
+<h1>Update car</h1>
+<p>Input car id to update</p>
+<input type="text" [(ngModel)]="a" placeholder="car id">
+
+<button (click)="showMe()">Show</button>
+
+<table mat-table class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell> id. </th>
+        <td mat-cell>
+            <input type="text" [(ngModel)]="a" placeholder="car id">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Model">
+        <th mat-header-cell> Model </th>
+        <td mat-cell>
+            <input type="text" [(ngModel)]="model" placeholder="Model">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Horse power">
+        <th mat-header-cell> Horse power </th>
+        <td mat-cell>
+            <input type="text" [(ngModel)]="hp" placeholder="Horse power">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Marque">
+        <th mat-header-cell> Marque </th>
+        <td mat-cell>
+            <input type="text" [(ngModel)]="marque" placeholder="Marque">
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<button (click)="updateCar()">Update</button>
