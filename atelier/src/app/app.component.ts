@@ -7,12 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'atelier';
-
-  isloggedIn() {
-    if (localStorage.getItem('jwt')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

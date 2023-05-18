@@ -36,7 +36,7 @@ export class RegisterComponent {
       .then((response) => response.json())
       .then((result) => {
         localStorage.setItem('jwt', result.data.jwt);
-        this.router.navigate(['/']);
+        window.location.href = '/cars';
       })
       .catch((error) => console.log('error', error));
   }

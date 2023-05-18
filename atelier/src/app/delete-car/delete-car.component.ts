@@ -14,6 +14,6 @@ export class DeleteCarComponent {
 
   deleteCar() {
     this.carservice.deleteCar(this.id_car).subscribe();
-    this.router.navigate(['/cars']);
+    window.location.href = '/cars';
   }
 }

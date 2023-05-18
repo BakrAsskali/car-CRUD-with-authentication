@@ -56,7 +56,7 @@ export class UpdateCArComponent {
     mycar.marque = this.marque;
 
     this.carService.updateCar(mycar).subscribe();
-    this.router.navigate(['/cars']);
+    window.location.href = '/cars';
   }
 
   displayedColumns: string[] = ['id', 'Model', 'Horse Power', 'Marque'];

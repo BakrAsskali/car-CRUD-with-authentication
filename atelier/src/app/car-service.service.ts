@@ -12,10 +12,15 @@ export class CarServiceService {
     .set('Authorization', 'Bearer ' + localStorage.getItem('jwt'));
 
   getCarById(id_car: any) {
-    console.log(this.url + '/car/' + id_car);
-    return this.http.get(this.url + '/car/' + id_car, {
-      headers: this.headers,
-    }) as Observable<CarModule>;
+    if (localStorage.getItem('jwt') == null) {
+      return this.http.get(
+        this.url + '/car/' + id_car
+      ) as Observable<CarModule>;
+    } else {
+      return this.http.get(this.url + '/car/' + id_car, {
+        headers: this.headers,
+      }) as Observable<CarModule>;
+    }
   }
   // url principal
   url: string = 'http://127.0.0.1:5000';
@@ -23,31 +28,48 @@ export class CarServiceService {
   constructor(private http: HttpClient) {}
 
   saveCare(car: CarModule) {
-    console.log(this.url + '/savecar');
-
-    console.log('car service' + car);
-
-    return this.http.post(this.url + '/savecar', car, {
-      headers: this.headers,
-    }) as Observable<CarModule>;
+    if (localStorage.getItem('jwt') == null) {
+      return this.http.post(
+        this.url + '/savecar',
+        car
+      ) as Observable<CarModule>;
+    } else {
+      return this.http.post(this.url + '/savecar', car, {
+        headers: this.headers,
+      }) as Observable<CarModule>;
+    }
   }
   getAllcars(): Observable<CarModule[]> {
-    return this.http.get<CarModule[]>(this.url + '/cars', {
-      headers: this.headers,
-    }) as Observable<CarModule[]>;
+    if (localStorage.getItem('jwt') == null) {
+      return this.http.get(this.url + '/cars') as Observable<CarModule[]>;
+    } else {
+      return this.http.get(this.url + '/cars', {
+        headers: this.headers,
+      }) as Observable<CarModule[]>;
+    }
   }
 
   updateCar(car: CarModule): Observable<CarModule[]> {
-    return this.http.put<CarModule[]>(
-      this.url + '/updatecar/' + car.id_car,
-      car,
-      { headers: this.headers }
-    ) as Observable<CarModule[]>;
+    if (localStorage.getItem('jwt') == null) {
+      return this.http.put(this.url + '/updatecar', car) as Observable<
+        CarModule[]
+      >;
+    } else {
+      return this.http.put(this.url + '/updatecar', car, {
+        headers: this.headers,
+      }) as Observable<CarModule[]>;
+    }
   }
 
   deleteCar(id_car: number): Observable<CarModule[]> {
-    return this.http.delete<CarModule[]>(this.url + '/deletecar/' + id_car, {
-      headers: this.headers,
-    }) as Observable<CarModule[]>;
+    if (localStorage.getItem('jwt') == null) {
+      return this.http.delete(this.url + '/deletecar/' + id_car) as Observable<
+        CarModule[]
+      >;
+    } else {
+      return this.http.delete(this.url + '/deletecar/' + id_car, {
+        headers: this.headers,
+      }) as Observable<CarModule[]>;
+    }
   }
 }

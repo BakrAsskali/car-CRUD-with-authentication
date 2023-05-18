@@ -34,6 +34,6 @@ export class CarComponent {
 
     this.carservice.saveCare(mycar).subscribe();
 
-    this.router.navigate(['/cars']);
+    window.location.href = '/cars';
   }
 }
